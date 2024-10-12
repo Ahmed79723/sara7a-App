@@ -9,12 +9,12 @@ import { globalErrorMW } from "./src/middleWares/globalErrorMW.js";
 import session from "express-session";
 import cors from "cors";
 import path from "path";
+import mongoSession from "connect-mongodb-session";
+// var MongoDBStore = require('connect-mongodb-session')(session);
 import { dbConnection } from "./dataBase/dbConnection.js";
 
 const app = express();
 const port = process.env.PORT || 3017;
-// var MongoDBStore = require('connect-mongodb-session')(session);
-import mongoSession from "connect-mongodb-session";
 let MongoDBStore = mongoSession(session);
 let store = new MongoDBStore({
   uri: "mongodb://127.0.0.1:27017/sarahah_App",
@@ -33,17 +33,12 @@ app.use(
 app.use(cors());
 app.set("views", path.resolve() + "/views");
 app.set("view engine", "ejs");
+app.use(express.static(path.join(path.resolve(), "public")));
+// app.use(express.static("public"));
 //& ========================================================================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(path.resolve(), "public")));
-
-// app.use(express.static("public"));
 globalRoutes(app);
-//? =====================================|default end point|===================================================
-// app.get("/", async (req, res) => {
-//   res.render("home.ejs");
-// });
 //^ =====================================|404 end point|===================================================
 app.use(
   "*",
