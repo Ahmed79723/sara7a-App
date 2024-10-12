@@ -17,7 +17,7 @@ const app = express();
 const port = process.env.PORT || 3017;
 let MongoDBStore = mongoSession(session);
 let store = new MongoDBStore({
-  uri: "mongodb://127.0.0.1:27017/sarahah_App",
+  uri: `mongodb+srv://${process.env.cloud_DB_user}:${process.env.cloud_DB_pass}@e-commerce.j07rt.mongodb.net/sara7a_APP`,
   collection: "mySessions",
 });
 app.use(
