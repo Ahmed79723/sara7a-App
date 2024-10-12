@@ -6,4 +6,7 @@ export const dbConnection = mongoose
   })
   .then(() => {
     console.log("database connected successfully!");
+  })
+  .catch((err) => {
+    console.log(err);
   });
