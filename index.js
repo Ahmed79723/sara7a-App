@@ -2,6 +2,7 @@
 process.on("uncaughtException", (err) => {
   console.log("error in code", err);
 });
+import "dotenv/config";
 import express from "express";
 import { globalRoutes } from "./src/modules/globalRoutes.js";
 import { AppError } from "./src/utils/appError.js";
