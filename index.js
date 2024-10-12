@@ -8,6 +8,7 @@ import { AppError } from "./src/utils/appError.js";
 import { globalErrorMW } from "./src/middleWares/globalErrorMW.js";
 import session from "express-session";
 import cors from "cors";
+import path from "path";
 import { dbConnection } from "./dataBase/dbConnection.js";
 
 const app = express();
@@ -29,13 +30,15 @@ app.use(
   })
 );
 //& =====================================|options|==========================================
-// app.set("views","viewss")
-// app.set("view engine","ejs")
+app.use(cors());
+app.set("views", path.resolve() + "/views");
+app.set("view engine", "ejs");
 //& ========================================================================================
 app.use(express.json());
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(path.resolve(), "public")));
+
+// app.use(express.static("public"));
 globalRoutes(app);
 //? =====================================|default end point|===================================================
 // app.get("/", async (req, res) => {
